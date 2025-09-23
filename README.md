@@ -1,1 +1,10 @@
 # c-digo_morse
+
+Nome: Gustavo Francisco Toito
+RA: 10438660
+
+Nome: GUILHERME LONGO GOUVEIA XAVIER
+RA: 10736785
+
+Nome: HENRIQUE CUNHA ALVES
+RA: 10740428
