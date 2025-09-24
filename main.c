@@ -3,13 +3,13 @@
 #include <ctype.h>
 
 
-char traducao (char banco_tradu[][], char entrada[]) {
+char traducao (char entrada[]) {
     int contador = 0;
     int b = 0;
     char separado[50][4];
     for(int i = 0; i < 100; i++) {
         // igual a diferente de 0, então não é espaço 
-        if (strcmp(" ", entrada[i]) != 0) {
+        if (entrada[i] != ' ') {
             contador++;
         } else {
             for (int a = i-contador; a < contador; a++) {
