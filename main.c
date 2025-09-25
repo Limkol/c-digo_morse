@@ -3,26 +3,28 @@
 #include <ctype.h>
 
 
-char traducao (char entrada[]) {
-    int contador = 0;
-    int b = 0;
-    char separado[50][4];
-    for(int i = 0; i < 100; i++) {
+char separar (char entrada[], char separado[50][5]) {
+    int b = 0, a = 0;
+    for(int i = 0; entrada[i] != '\0'; i++) {
         // igual a diferente de 0, então não é espaço 
         if (entrada[i] != ' ') {
-            contador++;
+            separado[b][a++] = entrada[i];
         } else {
-            for (int a = i-contador; a < contador; a++) {
-                strcpy(separado[b][a],entrada[a])
+            if (entrada[i+1] == ' ') {
+                a = 0;
+                b++;
+                separado[b][a++] = '|'; // marca espaço entre palavras
             }
-            contador = 0;
+            separado[b][a] = '\0';
             b++;
+            a = 0;
         }
     }
-
 }
 
-// . . . . . .\0
+int traducao() {
+
+}
 
 void main() {
     char banco_tradu[26][2][6] = {
@@ -41,8 +43,12 @@ void main() {
     */
 
     char texto[100];
-
     printf("Digite o texto:");
-
     fgets(texto, 100, stdin);
+    char separado[50][5];
+
+    separar (texto, separado);
+    for(int i = 0; i < 50 && separado[i][0] != '\0'; i++) {
+        printf("%s\n", separado[i]);
+    }
 }
