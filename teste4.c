@@ -1,31 +1,9 @@
 #include <stdio.h>
 #include <string.h> 
-#include <ctype.h>
 
 #define QTD_BANCO 27
 #define QTD_LETRA 2
 #define QTD_CARACTERES 6
-#define QTD_ENTRADA 100
-
-void separar (char entrada[QTD_ENTRADA], char separado[50][QTD_CARACTERES]) {
-    int b = 0, a = 0;
-    for(int i = 0; entrada[i] != '\0'; i++) {
-        if (entrada[i] != ' ') {
-            separado[b][a++] = entrada[i];
-        } else {
-            if (entrada[i+1] == ' ') {
-                a = 0;
-                b++;
-                i++;
-                separado[b][a++] = '/'; // marca espaço entre palavras
-            }
-            separado[b][a] = '\0';
-            b++;
-            a = 0;
-        }
-    }
-    separado[b][a-1] = '\0';
-}
 
 int encontrar_corrompido(char separado[50][QTD_CARACTERES], int corrompidos[50][2]) {
     int k = 0;
@@ -37,8 +15,10 @@ int encontrar_corrompido(char separado[50][QTD_CARACTERES], int corrompidos[50][
            } 
        }
     }
-}
+} // novo, colocar no main
 
+
+// contem alterações, colocar no main
 void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA][QTD_CARACTERES], char traduzido[50][3], int corrompidos[50][2], char possiveis[50][27][3]) {
     for (int i = 0; i < 50; i++) {
         for (int j = 0; j < QTD_BANCO; j++) {
@@ -52,7 +32,7 @@ void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA
     // para traduzir os corrompidos
     for (int i = 0; i < 50; i++) {
         int l = 0;
-        if (corrompidos[i][0] != -1) {
+        if (corrompidos[i][0] != 0) {
             int j = corrompidos[i][0]; 
             for (int k = 0; k < QTD_BANCO; k++) {
                 if (strncmp(separado[j], banco[k][1], corrompidos[i][1]) == 0) { // compara até o ponto corrompido
@@ -65,6 +45,7 @@ void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA
     }
 }
 
+// colocar no main
 int saida(int corrompidos[50][2], char traduzido[50][3], char possiveis[50][27][3]) {
     int z = 0;
     int a = 0;
@@ -80,11 +61,20 @@ int saida(int corrompidos[50][2], char traduzido[50][3], char possiveis[50][27][
         } else if (traduzido[i][0] != '\0') {
             printf("%s", traduzido[i]);
         }   
-    }
+    } // para ver como fica a tradução com o corrompido
     printf("\n");
+
 }
 
 int main() {
+    char separado[50][QTD_CARACTERES] = {
+        {"-.-."}, {".-"}, {"-.."}, {".-*"}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+    }; // entrada de teste
+
     char banco_tradu[QTD_BANCO][QTD_LETRA][QTD_CARACTERES] = {
     {"A", ".-"},   {"B", "-..."}, {"C", "-.-."}, {"D", "-.."},
     {"E", "."},    {"F", "..-."}, {"G", "--."},  {"H", "...."},
@@ -93,26 +83,23 @@ int main() {
     {"Q", "--.-"}, {"R", ".-."},  {"S", "..."},  {"T", "-"},
     {"U", "..-"},  {"V", "...-"}, {"W", ".--"},  {"X", "-..-"},
     {"Y", "-.--"}, {"Z", "--.."}, {" ", "/"}
-    };
+    }; // bando de dados para a tradução
 
-    char texto[QTD_ENTRADA];
-    printf("Digite o texto:");
-    fgets(texto, QTD_ENTRADA, stdin);
-    
-    char separado[50][QTD_CARACTERES];
-    separar (texto, separado);
-    for(int i = 0; i < 50 && separado[i][0] != '\0'; i++) {
-        printf("%s", separado[i]);
-    }
-    printf("\n");
+    int corrompidos[50][2] = {0}; // novo, colocar no main
+    encontrar_corrompido(separado, corrompidos); // novo, colocar no main
+    for(int i = 0; i < 50; i++) {
+        if (corrompidos[i][0] != 0) {
+            printf("Corrompido na posicao: %d Indice: %d\n", corrompidos[i][0], corrompidos[i][1]);
+        }
+    } // para testar se funcionou
 
-    int corrompidos[50][2] = {-1};
-    encontrar_corrompido(separado, corrompidos);
+    char possiveis[50][27][3] = {'\0'}; // novo, substituir no main,
+    char traduzido[50][3] = {'\0'}; /* novo, substituir no main, serve para definir tudo como vazio, 
+    impedindo excesso de lixo na memória*/
 
-    char possiveis[50][27][3] = {'\0'};
-    char traduzido[50][3] = {'\0'};
-    traducao(separado, banco_tradu, traduzido, corrompidos, possiveis); 
+    traducao(separado, banco_tradu, traduzido, corrompidos, possiveis); // novo, substituir no main
 
-    saida(corrompidos, traduzido, possiveis);
-    
+    saida(corrompidos, traduzido, possiveis); // novo, colocar no main
+
 }
+
