@@ -12,8 +12,8 @@ void separar (char entrada[QTD_ENTRADA], char separado[50][QTD_CARACTERES]) {
     int b = 0, a = 0;
     
     for(int i = 0; entrada[i] != '\0'; i++) { // Enquanto a string não acabar (\0), vai percorrendo
-        // Se o caractere não for espaço, adiciona na matriz separado
         if (entrada[i] != ' ') {
+            // Se o caractere não for espaço, adiciona na matriz separado
             separado[b][a++] = entrada[i]; 
         } else {
             // Se o caractere for espaço e o próximo caractere tambem for espaço, marca espaço entre palavras
@@ -29,7 +29,7 @@ void separar (char entrada[QTD_ENTRADA], char separado[50][QTD_CARACTERES]) {
             a = 0;
         }
     }
-    separado[b][a-1] = '\0'; // Finaliza a última letra apagando o enter, pois o enter também lido na entrada
+    separado[b][a-1] = '\0'; // Finaliza a última letra apagando o enter, pois o enter também é lido na entrada
 }
 
 
