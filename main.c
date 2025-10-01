@@ -6,6 +6,10 @@ Integrantes do grupo:
     Gustavo Francisco Toito – 10438660 – 02G
     Henrique Cunha Alves – 10740428 – 02G
     Guilherme Longo Gouveia Xavier - 10736785 - 02G
+    
+Vídeo Explicativo
+    Link: https://youtu.be/D1Z8pHH2e0s
+
 */
 #include <stdio.h>
 #include <string.h> 
