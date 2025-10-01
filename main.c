@@ -9,7 +9,6 @@ Integrantes do grupo:
 */
 #include <stdio.h>
 #include <string.h> 
-#include <ctype.h>
 
 #define QTD_BANCO 27 // Quantidade de grupos no banco de tradução
 #define QTD_LETRA 2 // Quantidade de elementos por grupo, sendo eles, letra e código morse
@@ -118,14 +117,14 @@ int main() {
     };
 
     // Cria o vetor para guarda a entrada do usuario
-    char texto[QTD_ENTRADA];
+    char entrada[QTD_ENTRADA];
     printf("Digite o texto:");
     // Lê a entrada do usuário
-    fgets(texto, QTD_ENTRADA, stdin);
+    fgets(entrada, QTD_ENTRADA, stdin);
     
     // Cria a matriz para guardar os códigos morse separados
     char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE];
-    separar (texto, separado); // Chama a função para separar a entrada
+    separar (entrada, separado); // Chama a função para separar a entrada
 
     // Cria a matriz para guardar os indices dos caracteres corrompidos
     int corrompidos[QTD_MAX_SEPARADO][2] = {-1}; // Inicializa com -1 para indicar que não há corrompidos

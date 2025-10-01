@@ -91,7 +91,7 @@ O programa é capaz de:
 
 🎥 Vídeo Explicativo
 
-    Link: (a ser adicionado)
+    Link: https://youtu.be/D1Z8pHH2e0s
 
 👥 Integrantes do Grupo
 
