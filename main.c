@@ -14,8 +14,8 @@ Integrantes do grupo:
 #define QTD_BANCO 27 // Quantidade de grupos no banco de tradução
 #define QTD_LETRA 2 // Quantidade de elementos por grupo, sendo eles, letra e código morse
 #define QTD_CARACTERES_MORSE 6 // Quantidade máxima de caracteres para cada letra em morse
-#define QTD_ENTRADA 100 // Quantidade máxima de caracteres na entrada do usuario
-#define QTD_MAX_SEPARADO 50 // Quantidade máxima de letras na qual a entrada pode ser separada
+#define QTD_ENTRADA 1000 // Quantidade máxima de caracteres na entrada do usuario
+#define QTD_MAX_SEPARADO 500 // Quantidade máxima de letras na qual a entrada pode ser separada
 
 // Função para separar a entrada (em morse) em grupos para realizar a tradução
 void separar (char entrada[QTD_ENTRADA], char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE]) {
@@ -126,7 +126,7 @@ int main() {
     // Cria a matriz para guardar os códigos morse separados
     char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE];
     separar (texto, separado); // Chama a função para separar a entrada
-50
+
     // Cria a matriz para guardar os indices dos caracteres corrompidos
     int corrompidos[QTD_MAX_SEPARADO][2] = {-1}; // Inicializa com -1 para indicar que não há corrompidos
     encontrar_corrompido(separado, corrompidos); // Chama a função para encontrar os indices dos palavras corrompidas
