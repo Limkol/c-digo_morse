@@ -1,14 +1,24 @@
+/*
+ALGORITMOS E PROGRAMAÇÃO II
+    Tradutor de Código Morse - Projeto 1 (Proj1)
+
+Integrantes do grupo:
+    Gustavo Francisco Toito – 10438660 – 02G
+    Henrique Cunha Alves – 10740428 – 02G
+    Guilherme Longo Gouveia Xavier - 10736785 - 02G
+*/
 #include <stdio.h>
 #include <string.h> 
 #include <ctype.h>
 
-#define QTD_BANCO 27 // Quantidade de letras no banco de tradução (A-Z e espaço)
-#define QTD_LETRA 2 // Quantidade de elementos por letra (letra e código morse)
-#define QTD_CARACTERES 6 // Quantidade máxima de caracteres por código morse
+#define QTD_BANCO 27 // Quantidade de grupos no banco de tradução
+#define QTD_LETRA 2 // Quantidade de elementos por grupo, sendo eles, letra e código morse
+#define QTD_CARACTERES_MORSE 6 // Quantidade máxima de caracteres para cada letra em morse
 #define QTD_ENTRADA 100 // Quantidade máxima de caracteres na entrada do usuario
+#define QTD_MAX_SEPARADO 50 // Quantidade máxima de letras na qual a entrada pode ser separada
 
 // Função para separar a entrada (em morse) em grupos para realizar a tradução
-void separar (char entrada[QTD_ENTRADA], char separado[50][QTD_CARACTERES]) {
+void separar (char entrada[QTD_ENTRADA], char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE]) {
     int b = 0, a = 0;
     
     for(int i = 0; entrada[i] != '\0'; i++) { // Enquanto a string não acabar (\0), vai percorrendo
@@ -34,10 +44,10 @@ void separar (char entrada[QTD_ENTRADA], char separado[50][QTD_CARACTERES]) {
 
 
 // Função para encontrar os caracteres corrompidos na matriz separado
-int encontrar_corrompido(char separado[50][QTD_CARACTERES], int corrompidos[50][2]) {
+int encontrar_corrompido(char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE], int corrompidos[QTD_MAX_SEPARADO][2]) {
     int k = 0;
-    for(int i = 0; i < 50; i++) {
-       for(int j = 0; j < QTD_CARACTERES; j++) {
+    for(int i = 0; i < QTD_MAX_SEPARADO; i++) {
+       for(int j = 0; j < QTD_CARACTERES_MORSE; j++) {
            if (separado[i][j] == '*') {
                 corrompidos[k][0] = i;
                 corrompidos[k++][1] = j;
@@ -48,9 +58,9 @@ int encontrar_corrompido(char separado[50][QTD_CARACTERES], int corrompidos[50][
 }
 
 // Função para traduzir o morse para a correspondente letra do alfabeto
-void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA][QTD_CARACTERES], char traduzido[50][3], int corrompidos[50][2], char possiveis[50][27][3]) {
+void traducao(char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE], char banco[QTD_BANCO][QTD_LETRA][QTD_CARACTERES_MORSE], char traduzido[QTD_MAX_SEPARADO][3], int corrompidos[QTD_MAX_SEPARADO][2], char possiveis[QTD_MAX_SEPARADO][27][3]) {
     // Essa primeira parte traduz apenas os que não estão corrompidos
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < QTD_MAX_SEPARADO; i++) {
         for (int j = 0; j < QTD_BANCO; j++) {
             if (strcmp(separado[i], banco[j][1]) == 0) {
                 strcpy(traduzido[i], banco[j][0]);
@@ -60,7 +70,7 @@ void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA
         }
     }
     // Essa segunda parte encontra as possíveis letras para os corrompidos
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < QTD_MAX_SEPARADO; i++) {
         int l = 0;
         if (corrompidos[i][0] != -1) {
             int j = corrompidos[i][0]; 
@@ -76,10 +86,10 @@ void traducao(char separado[50][QTD_CARACTERES], char banco[QTD_BANCO][QTD_LETRA
 }
 
 // Função para imprimir a saída, ou seja, o texto traduzido
-int saida(int corrompidos[50][2], char traduzido[50][3], char possiveis[50][27][3]) {
+int saida(int corrompidos[QTD_MAX_SEPARADO][2], char traduzido[QTD_MAX_SEPARADO][3], char possiveis[QTD_MAX_SEPARADO][27][3]) {
     int z = 0;
     int a = 0;
-    for(int i = 0; i < 50 ; i++) {
+    for(int i = 0; i < QTD_MAX_SEPARADO ; i++) {
         if (i == corrompidos[a][0]) {
             printf("[");
             for (int j = 0; j < 27 && possiveis[z][j][0] != '\0'; j++) {
@@ -97,7 +107,7 @@ int saida(int corrompidos[50][2], char traduzido[50][3], char possiveis[50][27][
 
 int main() {
     // Banco de tradução do código morse para o alfabeto
-    char banco_tradu[QTD_BANCO][QTD_LETRA][QTD_CARACTERES] = {
+    char banco_traducao[QTD_BANCO][QTD_LETRA][QTD_CARACTERES_MORSE] = {
     {"A", ".-"},   {"B", "-..."}, {"C", "-.-."}, {"D", "-.."},
     {"E", "."},    {"F", "..-."}, {"G", "--."},  {"H", "...."},
     {"I", ".."},   {"J", ".---"}, {"K", "-.-"},  {"L", ".-.."},
@@ -114,19 +124,19 @@ int main() {
     fgets(texto, QTD_ENTRADA, stdin);
     
     // Cria a matriz para guardar os códigos morse separados
-    char separado[50][QTD_CARACTERES];
+    char separado[QTD_MAX_SEPARADO][QTD_CARACTERES_MORSE];
     separar (texto, separado); // Chama a função para separar a entrada
-
+50
     // Cria a matriz para guardar os indices dos caracteres corrompidos
-    int corrompidos[50][2] = {-1}; // Inicializa com -1 para indicar que não há corrompidos
+    int corrompidos[QTD_MAX_SEPARADO][2] = {-1}; // Inicializa com -1 para indicar que não há corrompidos
     encontrar_corrompido(separado, corrompidos); // Chama a função para encontrar os indices dos palavras corrompidas
 
     // Cria as matrizes para guardar as possíveis traduções para os corrompidos
-    char possiveis[50][27][3] = {'\0'}; // Inicializa com '\0' para evitar transbordo na memória
+    char possiveis[QTD_MAX_SEPARADO][27][3] = {'\0'}; // Inicializa com '\0' para evitar transbordo na memória
     // Cria a matriz para guardar o texto traduzido
-    char traduzido[50][3] = {'\0'}; // Inicializa com '\0' para evitar transbordo na memória
+    char traduzido[QTD_MAX_SEPARADO][3] = {'\0'}; // Inicializa com '\0' para evitar transbordo na memória
     // Chama a função para realizar a tradução
-    traducao(separado, banco_tradu, traduzido, corrompidos, possiveis); 
+    traducao(separado, banco_traducao, traduzido, corrompidos, possiveis); 
     // Chama a função para imprimir a saída
     saida(corrompidos, traduzido, possiveis);
 }

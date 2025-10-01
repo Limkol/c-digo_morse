@@ -1,84 +1,77 @@
 # c-digo_morse
 
-🔡 Tradutor de Código Morse com Tratamento de Erros
+🔡 Tradutor de Código Morse
 
 Este projeto implementa um tradutor de código Morse em linguagem C.
+
 O programa é capaz de:
 
-Traduzir mensagens em Morse para texto (A–Z e espaço).
+    Traduzir mensagens em Morse para texto (A–Z e espaço).
 
-Detectar caracteres corrompidos (representados por *) e sugerir todas as possíveis letras que poderiam substituir o caractere corrompido.
+    Detectar caracteres corrompidos (representados por *) e sugerir todas as possíveis letras que poderiam substituir o caractere corrompido.
 
-Exibir a tradução final no terminal, indicando letras corrompidas entre colchetes [] com suas possíveis alternativas.
+    Exibir a tradução final no terminal, indicando letras corrompidas entre colchetes [] com suas possíveis alternativas.
 
 📌 Funcionalidades
 
-✅ Entrada de mensagem em código Morse pelo usuário.
+    ✅ Entrada de mensagem em código Morse pelo usuário.
 
-✅ Conversão para caracteres alfabéticos (A–Z e espaço).
+    ✅ Conversão para caracteres alfabéticos (A–Z e espaço).
 
-✅ Identificação de caracteres corrompidos (*).
+    ✅ Identificação de caracteres corrompidos (*).
 
-✅ Sugestão de todas as letras possíveis para as posições corrompidas.
+    ✅ Sugestão de todas as letras possíveis para as posições corrompidas.
 
-✅ Saída formatada no terminal.
+    ✅ Saída formatada no terminal.
 
 🛠️ Estrutura do Código
 
-O programa é dividido em funções para melhor organização:
+    O programa é dividido em funções para melhor organização:
 
-separar → separa a entrada Morse em letras/palavras.
+    separar → separa a entrada Morse em letras/palavras.
 
-encontrar_corrompido → localiza caracteres corrompidos (*) e salva seus índices.
+    encontrar_corrompido → localiza caracteres corrompidos (*) e salva seus índices.
 
-traducao → realiza a tradução do Morse para letras, além de gerar alternativas para caracteres corrompidos.
+    traducao → realiza a tradução do Morse para letras, além de gerar alternativas para caracteres corrompidos.
 
-saida → imprime a mensagem final traduzida, exibindo alternativas para caracteres corrompidos.
+    saida → imprime a mensagem final traduzida, exibindo alternativas para caracteres corrompidos.
 
-main → define o banco de tradução Morse ↔ letras, organiza as estruturas auxiliares e chama as funções.
+    main → define o banco de tradução Morse ↔ letras, organiza as estruturas auxiliares e chama as funções.
 
-📂 Estrutura de Arquivos
-📦 Tradutor-Morse
- ┣ 📜 main.c         # Código-fonte principal em C
-  ┣ 📜 README.md      # Documentação do projeto
+⚙️ Como Compilar e Executar
+    1. Baixe este repositório
+    https://github.com/Limkol/c-digo_morse
 
-  ⚙️ Como Compilar e Executar
-  1. Baixe este repositório
-  https://github.com/seu-usuario/tradutor-morse.git
+    2.Crie um novo terminal
 
-  2.Crie um novo terminal
+    3. Compile o programa
 
-  3. Compile o programa
+    Usando o GCC:
 
-  Usando o GCC:
+    gcc main.c -o main.exe
 
-  gcc main.c -o tradutor
+    4. Execute
+    ./main.exe
 
-  4. Execute
-  ./tradutor
+📥 Exemplo de Uso
 
-  📥 Exemplo de Uso
-  Entrada
-  Digite o texto: .... . .-.. .-.. ---  .-- --- .-. .-.. -..
+    Teste 01 - Tradução de texto em morse completo
 
-  Saída
-  HELLO WORLD
+    Entrada:
+    Digite o texto: .- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..
 
-  Exemplo com caractere corrompido
+    Saída:
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-  Entrada:
+    Teste 02 - Tradução de texto em morse corrompido
 
-  Digite o texto: .... . * .-.. .-..
+    Entrada:
+    Digite o texto: -.-. .- -.. .-*  -- .- -.-. .- -.-. ---  -. ---  ... . ..-  --. .- .-.. .... ---
 
+    Saída:
+    CAD[AJLPRW] MACACO NO SEU GALHO
 
-  Saída:
-
-  H[E]LL
-
-
-  O caractere * foi identificado como corrompido e o programa sugeriu a possível letra correspondente.
-
-  🧩 Banco de Tradução
+🧩 Banco de Tradução
 
   O projeto utiliza uma matriz para mapear caracteres Morse para letras:
 
@@ -90,8 +83,18 @@ main → define o banco de tradução Morse ↔ letras, organiza as estruturas a
   {"U", "..-"},  {"V", "...-"}, {"W", ".--"},  {"X", "-..-"},
   {"Y", "-.--"}, {"Z", "--.."}, {" ", "/"}
 
-  📋 Requisitos
+📋 Requisitos
 
   Compilador GCC ou compatível.
 
   Sistema operacional: Linux, macOS ou Windows (com MinGW/WSL).
+
+🎥 Vídeo Explicativo
+
+    Link: (a ser adicionado)
+
+👥 Integrantes do Grupo
+
+    Gustavo Francisco Toito – 10438660 – 02G
+    Henrique Cunha Alves – 10740428 – 02G
+    Guilherme Longo Gouveia Xavier - 10736785 - 02G
